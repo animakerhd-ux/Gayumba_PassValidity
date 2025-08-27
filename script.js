@@ -1,11 +1,16 @@
 const form = document.getElementById("registerForm");
+const username = document.getElementById("username");
+const email = document.getElementById("email");
 const password = document.getElementById("password");
 const confirmPassword = document.getElementById("confirmPassword");
+
+const usernameErrors = document.getElementById("usernameErrors");
+const emailErrors = document.getElementById("emailErrors");
 const passwordErrors = document.getElementById("passwordErrors");
 const confirmErrors = document.getElementById("confirmErrors");
 const successMsg = document.getElementById("successMsg");
 
-// Toggle password visibility with animation
+// Toggle password visibility
 document.querySelectorAll(".toggle-password").forEach(icon => {
   icon.addEventListener("click", () => {
     const targetId = icon.getAttribute("data-target");
@@ -21,18 +26,45 @@ document.querySelectorAll(".toggle-password").forEach(icon => {
   });
 });
 
+// Show error
+function showError(container, message) {
+  const p = document.createElement("p");
+  p.classList.add("error");
+  p.innerText = message;
+  container.appendChild(p);
+}
+
 // Form validation
 form.addEventListener("submit", function (e) {
   e.preventDefault();
+
+  // Clear previous errors
+  usernameErrors.innerHTML = "";
+  emailErrors.innerHTML = "";
   passwordErrors.innerHTML = "";
   confirmErrors.innerHTML = "";
   successMsg.style.display = "none";
 
-  const pass = password.value;
-  const confirm = confirmPassword.value;
   let valid = true;
 
-  // Validation rules
+  const user = username.value.trim();
+  const mail = email.value.trim();
+  const pass = password.value;
+  const confirm = confirmPassword.value;
+
+  // Username validation
+  if (user.length < 3) {
+    showError(usernameErrors, "Username must be at least 3 characters.");
+    valid = false;
+  }
+
+  // Email validation
+  if (!/^\S+@\S+\.\S+$/.test(mail)) {
+    showError(emailErrors, "Enter a valid email address.");
+    valid = false;
+  }
+
+  // Password validation
   if (pass.length < 8) {
     showError(passwordErrors, "Password must be at least 8 characters long.");
     valid = false;
@@ -57,21 +89,16 @@ form.addEventListener("submit", function (e) {
     showError(passwordErrors, "Password must contain at least one special character (@$!%*?&).");
     valid = false;
   }
+
+  // Confirm password validation
   if (pass !== confirm) {
     showError(confirmErrors, "Passwords do not match.");
     valid = false;
   }
 
+  // Success
   if (valid) {
     successMsg.style.display = "block";
-    successMsg.style.animation = "slideDown 0.6s ease forwards";
     form.reset();
   }
 });
-
-function showError(container, message) {
-  const p = document.createElement("p");
-  p.classList.add("error");
-  p.innerText = message;
-  container.appendChild(p);
-}
