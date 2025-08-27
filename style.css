@@ -28,11 +28,8 @@ label {
   font-weight: bold;
 }
 
-.password-wrapper {
-  position: relative;
-  width: 100%;
-}
-
+input[type="text"],
+input[type="email"],
 .password-wrapper input {
   width: 100%;
   padding: 10px;
@@ -42,9 +39,14 @@ label {
   transition: all 0.3s ease;
 }
 
-.password-wrapper input:focus {
+input:focus {
   border-color: #007bff;
   box-shadow: 0 0 6px rgba(0,123,255,0.5);
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
 }
 
 .toggle-password {
@@ -62,7 +64,6 @@ label {
   transform: translateY(-50%) rotate(180deg);
 }
 
-/* --- Eye-catching Register Button --- */
 button {
   width: 100%;
   padding: 12px;
@@ -87,7 +88,7 @@ button::before {
   left: -75%;
   width: 50%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.5); 
   transform: skewX(-25deg);
   transition: 0.5s;
 }
@@ -101,14 +102,12 @@ button:hover {
   box-shadow: 0 0 20px rgba(0, 123, 255, 0.7);
 }
 
-/* Pulse animation */
 @keyframes pulse {
   0% { box-shadow: 0 0 0px rgba(0, 123, 255, 0.7); }
   50% { box-shadow: 0 0 20px rgba(0, 123, 255, 0.9); }
   100% { box-shadow: 0 0 0px rgba(0, 123, 255, 0.7); }
 }
 
-/* Error messages */
 .error {
   color: red;
   font-size: 14px;
@@ -117,7 +116,6 @@ button:hover {
   animation: fadeIn 0.5s forwards;
 }
 
-/* Success message */
 .success {
   color: green;
   font-size: 16px;
@@ -128,7 +126,6 @@ button:hover {
   animation: slideDown 0.6s ease forwards;
 }
 
-/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
